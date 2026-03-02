@@ -6,6 +6,7 @@ __pycache__/
 # C extensions
 *.so
 
+.gitignore
 # Distribution / packaging
 .Python
 build/
@@ -82,3 +83,5 @@ main.exe
 # Misc
 *.toml
 .idea/
+cleanup.py
+git_push.py
