@@ -1,0 +1,26 @@
+1、激活虚拟环境
+
+E:\work\SMIC\Nanopi\MTS问题\watchman-py\watchlog_py>activate mts_log
+
+2、打包
+(mts_log) E:\work\SMIC\Nanopi\MTS问题\watchman-py\watchlog_py>pyinstaller -F file-watch.py
+
+3、输出requirements.txt
+pip freeze > requirements.txt
+
+ pip list --format=freeze > requirements.txt
+
+
+ pyinstaller -F main.py -i action.ico
+
+
+
+ pyinstaller --target-architecture=x86_64 -F main.py -i action.ico
+
+
+pyinstaller --target-architecture=x86_64 your_script.py
+
+
+pyinstaller --onefile --32 your_script.py
+
+pyinstaller --onefile .\main.py -i action.ico

@@ -1,0 +1,64 @@
+[app]                                       # 程序配置: 程序本身信息
+name = 'watchlog_py'                      # NOTE: 程序名
+version = 'v0.2.1'                          # NOTE: 程序版本
+#update_enabled = false                     # NOTE: 是否开启自动更新功能
+#update_url = 'http://example.com/watchlog_py/main.exe'  # NOTE: 更新文件的网络地址
+#main_exe_path = './main.exe'              # NOTE: 主程序路径
+#update_interval = 3600                     # NOTE: 定时更新间隔时间（秒），默认3600秒（1小时）
+
+
+[collector]
+enabled = true
+watch_path = "D:\\Lot\\Lot1"
+extract_dir = "D:\\EAP"
+
+# 支持通配符匹配，如 *.csv 匹配所有csv文件，Product*.ini 匹配以Product开头的ini文件
+target_files = ['*_StatisInfo.ini']
+
+MAX_LINES = 200  # 缓存最大行数，10000条
+MAX_RECORDS = 200  # 历史文件记录，最大行数
+FILE_PUSH_LIMIT = 2_242_880 # 允许的最大文件大小 (5MB),新建文件，全部读取走
+full_read = true    # 是否全部读取，默认false；针对文件修改类型，但文件内容全部读取的情况
+encoding = 'utf-8'    # 文件读写的编码格式, utf-8、gbk
+
+records_path = './data/records.json'
+device_data_path = './data/data.txt'
+Scan_Cycle = 0.02   # 扫描周期
+Heartbeat_Cycle = 120    # 心跳信号的周期
+
+[sender]
+url = "127.0.0.1/api/upload/xxx1"
+schema = 'device_monitor'
+table = 'ZC-1'
+deviceid = 'ZC-1'
+
+[mqtt]
+host = '59.110.157.60'              # MQTT broker服务地址
+port = 1883                         # MQTT broker服务地址
+client_id = 'logwatch22'     # 客户端ID，为空则使用随机值
+clean_session = false               # 是否清除连接会话，当client_id取随机值时（必须且默认）为true
+keepalive = 60                      # 心跳包发送时间间隔
+username = 'client001'
+password = 'TyinD@444b'
+qos = 1                             # 服务质量，可选值为：0, 1, 2
+sub_topics = ['test1', 'test1', 'sensor/weather']    # 发布/订阅的主题
+pub_topics = ['zc/device_monitor/data/TF-1', 'device_monitor/data/heartbeat']    # 发布/订阅的主题,列表形式;
+publish_cycle = 0.1                # 发布数据的循环间隔时间（秒）
+
+
+[db_sync]                                     # 数据库同步配置: 定时读取第三方数据库文件
+db_sync_path = 'C:\\Users\\song\\Desktop\\测试\\Statistics.db'                             # 数据库文件路径
+db_sync_isEnable = false                      # 是否启用数据库同步功能
+db_sync_interval_time = 60                  # 同步间隔时间（秒），默认1小时
+db_sync_query = ""                  # 数据库查询语句
+
+[log]                                          # 日志配置: 决定本程序日志格式和输出目标
+console = true                              # CHANGED: 是否要将log输出到STDOUT，只在调试时有用，正式部署时需要关闭
+console_level = 'DEBUG'                      # NOTE: 日志等级，可选值为'DEBUG', 'INFO', 'WARNING', 'ERROR', 'CRITICAL'
+file = true                                 # NOTE: 是否要将log输出到文件中
+file_level = 'DEBUG'                         # NOTE: 日志等级，可选值为'DEBUG', 'INFO', 'WARNING', 'ERROR', 'CRITICAL'
+log_file = 'logs/log.log'                   # NOTE: log文件存储路径
+max_size = 10240000                     # NOTE: 单个log文件大小，单位KB 1024000=1MB
+backup_count = 20                           # NOTE: 最大log文件数
+format = '%(asctime)s.%(msecs)03d | %(levelname)s | <%(threadName)s> %(module)s.%(funcName)s [%(lineno)d]: %(message)s'
+
